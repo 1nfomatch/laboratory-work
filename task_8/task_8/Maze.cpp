@@ -24,8 +24,14 @@ bool Maze::hasConnection(int i1, int j1, int i2, int j2) const {
 
 bool Maze::makeConnection(int i1, int j1, int i2, int j2) const {
 	MCell& firstCell = m_field[i1 * n + j1];
+	MCell& secondCell = m_field[i2 * n + j2];
+
 	if (i1 == i2 && j1 + 1 == j2) {
 		firstCell.m_right = true;
+		return true;
+	}
+	else if (i1 == i2 && j1 == j2 + 1) {
+		secondCell.m_right = true;
 		return true;
 	}
 
@@ -33,18 +39,31 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) const {
 		firstCell.m_down = true;
 		return true;
 	}
+	else if (i1 == i2 + 1 && j1 == j2) {
+		secondCell.m_down = true;
+		return true;
+	}
 	return false;
 }
 
 bool Maze::removeConnection(int i1, int j1, int i2, int j2) const {
-	MCell firstCell = m_field[i1 * n + j1];
+	MCell& firstCell = m_field[i1 * n + j1];
+	MCell& secondCell = m_field[i2 * n + j2];
 	if (i1 == i2 && j1 + 1 == j2) {
 		firstCell.m_right = false;
+		return false;
+	}
+	else if (i1 == i2 && j1 == j2 + 1) {
+		secondCell.m_right = false;
 		return false;
 	}
 
 	if (i1 + 1 == i2 && j1 == j2) {
 		firstCell.m_down = false;
+		return false;
+	}
+	else if (i1 == i2 + 1 && j1 == j2) {
+		secondCell.m_down = false;
 		return false;
 	}
 	return true;
