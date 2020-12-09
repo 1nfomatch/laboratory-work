@@ -28,20 +28,3 @@ private:
 		this->m_parent = parent;
 	}
 };
-
-//Опишите класс вершины дерева MTreeNode :
-//-поля координаты клетки поля лабиринта int m_i, m_j
-//- поле указателя на родителя вершины MTreeNode * m_parent
-//- поле массива указателей на потомков вершины MTreeNode * m_children
-//- поле int m_distance расстояния
-//- геттер int i() const
-//- геттер int j() const
-//- геттер const MTreeNode * parent() const
-//- геттер const MTreeNode * child(int i) const
-//- геттер int distance() const
-//- метод int childCount() const
-//- метод bool addChild(int i, int j)
-//- метод MTreeNode * hasChild(int i, int j) //Так и задумано.
-//- статический метод MTreeNode * beginTree(int i, int j)
-//- приватный конструктор MTreeNode(MTreeNode * parent)
-//- память потомков обслуживает родитель
