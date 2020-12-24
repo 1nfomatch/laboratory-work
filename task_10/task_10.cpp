@@ -8,18 +8,20 @@
 
 using namespace std;
 
-const int n = 15;
-const int m = 15;
+size_t mazeSize;
 
 std::random_device rd;
 std::mt19937 rng(rd());
 std::uniform_int_distribution<int> randomStep(-1, 1);
-std::uniform_int_distribution<int> position(0, n);
+std::uniform_int_distribution<int> position(0, mazeSize);
 std::uniform_int_distribution<int> spawnDirection(0, 3);
 
-void buildFullMaze(Maze& iMaze, MTreeNode& tree) 
+void buildFullMaze(Maze& iMaze, MTreeNode& tree)
 {
-	int vertexWeight[n+1][m+1];
+	int** vertexWeight = new int*[mazeSize + 1];
+	for (int i = 0; i < mazeSize; i++) {
+		vertexWeight[i] = new int[mazeSize + 1];
+	}
 	int i = tree.i();
 	int j = tree.j();
 	auto cellsPassed = 0;
@@ -76,9 +78,10 @@ void buildFullMaze(Maze& iMaze, MTreeNode& tree)
 	}
 
 	int sum = 0;
-	for (auto i = 0; i < n; i++)
+	int max = 0;
+	for (auto i = 0; i < mazeSize; i++)
 	{
-		for (auto k = 0; k < m; k++)
+		for (auto k = 0; k < mazeSize; k++)
 		{
 			if (vertexWeight[i][k] < 10)
 				cout << vertexWeight[i][k] << "   ";
@@ -88,15 +91,21 @@ void buildFullMaze(Maze& iMaze, MTreeNode& tree)
 			else if (vertexWeight[i][k] < 100 || vertexWeight[i][k] > 9)
 				cout << vertexWeight[i][k] << "  ";
 			sum += vertexWeight[i][k];
+			if (vertexWeight[i][k] >= max) {
+				max = vertexWeight[i][k];
+			}
 		}
 		cout << endl;
 	}
-	cout << "Average weight of vertices: " << sum / (n * m) << endl;
+	cout << "Average weight of vertices: " << sum / (mazeSize * mazeSize) << endl;
+	cout << "Max weight of verices: " << max << endl;
 }
 
 int main()
 {
-	Maze maze(n, m);
+	cout << "Enter the size of the maze: ";
+	cin >> mazeSize;
+	Maze maze(mazeSize, mazeSize);
 	int i = 0;
 	int j = 0;
 	int startDirection = spawnDirection(rng);
@@ -107,7 +116,7 @@ int main()
 		j = position(rng);
 		break;
 	case 1:
-		i = n;
+		i = mazeSize;
 		j = position(rng);
 		break;
 	case 2:
@@ -115,7 +124,7 @@ int main()
 		i = position(rng);
 		break;
 	case 3:
-		j = m;
+		j = mazeSize;
 		i = position(rng);
 		break;
 	}

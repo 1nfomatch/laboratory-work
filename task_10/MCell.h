@@ -2,13 +2,8 @@
 class MCell
 {
 public:
-	bool getDown() const {
-		return m_down;
-	}
-
-	bool getRight() const {
-		return m_right;
-	}
+	bool getDown() const;
+	bool getRight() const;
 private:
 	bool m_down = 0;
 	bool m_right = 0;

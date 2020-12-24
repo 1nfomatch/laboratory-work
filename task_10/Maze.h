@@ -14,9 +14,9 @@ public:
 	bool removeConnection(int i1, int j1, int i2, int j2) const;
 	void printMaze() const;
 
-	/*~Maze() {
+	~Maze() {
 		delete[] m_field;
-	}*/
+	}
 private:
 	MCell* m_field;
 };

@@ -13,9 +13,9 @@ public:
 	MTreeNode* hasChild(int i, int j);
 	static MTreeNode* beginTree(int i, int j);
 
-	/*~MTreeNode() {
+	~MTreeNode() {
 		delete[] m_children;
-	}*/
+	}
 private:
 	int m_i;
 	int m_j;
